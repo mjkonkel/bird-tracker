@@ -11,3 +11,13 @@
 min-width: 100%;
 min-height: 365px;
 }
+
+
+
+.card {
+    background-color: rgb(173, 176, 176);
+    margin: 20px;
+    border-radius: 20px;
+    padding: 2rem;
+    width: 45vh;
+}
