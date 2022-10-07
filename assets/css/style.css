@@ -1,0 +1,13 @@
+:root {
+    --bluegreen: #74D3AE;
+    --grn: #678D58;
+    --ligr: #A6C48A;
+    --beig: #F6E7CB;
+    --pinkor: #DD9787;
+}
+
+
+#map {
+min-width: 100%;
+min-height: 365px;
+}
