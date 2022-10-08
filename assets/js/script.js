@@ -2,6 +2,12 @@
 var myHeaders = new Headers();
 myHeaders.append("X-eBirdApiToken", "kvj4gs6ni5d6");
 var geokey = "c9676e6950f05e39b2aae36c413d9dff";
+var factsCont = $('#cont');
+var birdNames = $('#birdNames');
+var birdLoc = $('#birdLoc');
+var tableBody = $('#tableBody');
+var go = $('#go');
+var searchbar = $('#searchbar');
 
 
 var requestOptions = {
@@ -9,9 +15,6 @@ var requestOptions = {
   headers: myHeaders,
   redirect: 'follow'
 };
-
-var go = $('#go');
-var searchbar = $('#searchbar')
 
 //get map to populate in html
 var map = L.map('map').setView([51.505, -0.09], 13);
@@ -48,22 +51,58 @@ function getLoc() {
     })
     .then(function(data) {
       console.log(data);
-      var birdRequest = "https://api.ebird.org/v2/data/obs/geo/recent?lat="+ data[0].lat + "&lng=" + data[0].lon;
+      var lat = data[0].lat;
+      var lon = data[0].lon;
+      map.setView([lat,lon],13);
+      var birdRequest = "https://api.ebird.org/v2/data/obs/geo/recent?lat="+ lat + "&lng=" + lon;
       fetch(birdRequest,requestOptions)
         .then(function(birdResponse) {
           return birdResponse.json();
         })
         .then(function(birdData) {
           console.log(birdData);
+          // only execute for loop if number of children for tableBody is 0 If not 0 then it means its already populated
+          // Then execute text replacement instead
+          if (tableBody.children().length===0) {
+            for (var i = 0; i< 10; i++) {
+              var tableRow = $('<tr class="border-b">');
+              tableBody.append(tableRow);
+              var numEl = $('<td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"></td>');
+              tableRow.append(numEl);
+              numEl.text(i+1);
+              var nameEl = $('<td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">');
+              tableRow.append(nameEl);
+              nameEl.attr('id',"name" + i);
+              nameEl.text(birdData[i].comName);
+              var locEl = $('<td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">');
+              tableRow.append(locEl);
+              locEl.text(birdData[i].locName);
+              locEl.attr('id',"loc" + i);
+              var marker = L.marker([birdData[i].lat, birdData[i].lng]);
+              marker.addTo(map);
+            }
+          } else {
+            for (var i = 0; i<10; i++) {
+              var nameid = "#name" + i;
+              var locid = "#loc" + i;
+              console.log(birdData[i].comName);
+              $(nameid).text(birdData[i].comName);
+              $(locid).text(birdData[i].locName);
+              var marker = L.marker([birdData[i].lat, birdData[i].lng]);
+              marker.addTo(map);
+            }
+          }
         })
     })
 }
 
 go.on('click',getLoc);
-
-
-
-
+searchbar.keydown(function(e) {
+  var keyCode = e.which;
+  if (e.which ==13) {
+    getLoc();
+  }
+})
 
 
 //--------WIKI API-------//

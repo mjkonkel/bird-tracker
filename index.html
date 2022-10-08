@@ -77,15 +77,40 @@
     </header>
     <div class="flex items-center justify-start ml-5 mt-5 mb-5">
         <div class="flex border-2 border-gray-200 rounded">
-            <input type="text" id="searchbar" class="px-4 py-2 w-80" placeholder="Search...">
+            <input type="text" id="searchbar" class="px-4 py-2 w-80" placeholder="Search for a Location!">
             <button id="go" class="px-4 text-white bg-gray-600 border-l ">
                 Search
             </button>
         </div>
     </div>
     <main class="grid grid-cols-3 gap-4 ml-5">
-        <div class="flex border-2 border-gray-200 rounded min-w-sm">
-            <div id="map" class = "max-w-sm max-h-[300px] flex flex-wrap"></div>
+        <div class="flex border-2 border-gray-200 rounded min-w-sm min-h-[350px]">
+            <div id="map" class = "max-w-sm flex flex-wrap"></div>
+        </div>
+        <div class="flex flex-col">
+          <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+              <div class="overflow-hidden">
+                <table class="min-w-full">
+                  <thead class="border-b">
+                    <tr>
+                      <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                        #
+                      </th>
+                      <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                        Common Name
+                      </th>
+                      <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                        Location
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody id = "tableBody">
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
         </div>
     </main>
 
