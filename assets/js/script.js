@@ -75,8 +75,8 @@ const options = {
 		'X-RapidAPI-Host': 'wiki-briefs.p.rapidapi.com'
 	}
 };
-
-fetch('https://wiki-briefs.p.rapidapi.com/search?q=Messi&topk=3', options)
+linklink = 'https://wiki-briefs.p.rapidapi.com/search?q=LilUziVert=3'
+fetch(linklink, options)
 	.then(response => response.json())
 	.then(response => {console.log(response.summary[0])
 
