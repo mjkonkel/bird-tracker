@@ -8,6 +8,7 @@ var birdLoc = $('#birdLoc');
 var tableBody = $('#tableBody');
 var go = $('#go');
 var searchbar = $('#searchbar');
+var birdSearch = $('#birdSearch');
 
 
 var requestOptions = {
@@ -17,7 +18,7 @@ var requestOptions = {
 };
 
 //get map to populate in html
-var map = L.map('map').setView([51.505, -0.09], 13);
+var map = L.map('map').setView([51.505, -0.09], 12);
 L.tileLayer('https://api.maptiler.com/maps/basic-v2/{z}/{x}/{y}.png?key=BDq8ih5k4CXhmse4zYZL', {
   maxZoom: 19,
   attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
@@ -47,13 +48,15 @@ function getLoc() {
   var requestUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + searchbar.val() + '&appid=' + geokey;
   fetch(requestUrl)
     .then(function (response) {
+      searchbar.val("");
       return response.json();
     })
     .then(function(data) {
       console.log(data);
       var lat = data[0].lat;
       var lon = data[0].lon;
-      map.setView([lat,lon],13);
+      map.setView([lat,lon],12);
+      var markerGroup = L.layerGroup().addTo(map);
       var birdRequest = "https://api.ebird.org/v2/data/obs/geo/recent?lat="+ lat + "&lng=" + lon;
       fetch(birdRequest,requestOptions)
         .then(function(birdResponse) {
@@ -82,6 +85,7 @@ function getLoc() {
               marker.addTo(map);
             }
           } else {
+            markerGroup.clearLayers();
             for (var i = 0; i<10; i++) {
               var nameid = "#name" + i;
               var locid = "#loc" + i;
@@ -89,14 +93,16 @@ function getLoc() {
               $(nameid).text(birdData[i].comName);
               $(locid).text(birdData[i].locName);
               var marker = L.marker([birdData[i].lat, birdData[i].lng]);
-              marker.addTo(map);
+              marker.addTo(markerGroup);
             }
           }
         })
     })
 }
 
-go.on('click',getLoc);
+go.on('click',function() {
+  getLoc();
+});
 searchbar.keydown(function(e) {
   var keyCode = e.which;
   if (e.which ==13) {
@@ -115,11 +121,13 @@ const options = {
 	}
 };
 
-fetch('https://wiki-briefs.p.rapidapi.com/search?q=Messi&topk=3', options)
-	.then(response => response.json())
-	.then(response => {console.log(response.summary[0])
-
-      const info = response.summary[0];
+function getFact(e) {
+  fetch('https://wiki-briefs.p.rapidapi.com/search?q=' + e + '&topk=3', options)
+	  .then(response => response.json())
+	  .then(response => {console.log(response)
+      
+      const info = response.summary[1];
+      console.log(response.summary)
       const outputinfo = document.getElementById("information");
       const display12 = document.getElementById("display1");
       const displayinfo = document.createElement("h1");
@@ -129,7 +137,11 @@ fetch('https://wiki-briefs.p.rapidapi.com/search?q=Messi&topk=3', options)
 
   
 	.catch(err => console.error(err));
-
- 
+}
   
- 
+birdSearch.keydown(function(e) {
+  var keyCode = e.which;
+  if (keyCode ==13) {
+    getFact(birdSearch.val());
+  }
+});
