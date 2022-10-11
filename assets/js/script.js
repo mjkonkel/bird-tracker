@@ -8,7 +8,9 @@ var birdLoc = $('#birdLoc');
 var tableBody = $('#tableBody');
 var go = $('#go');
 var searchbar = $('#searchbar');
-
+var birdAdd = $('#bird-input');
+var x = 0
+var birdButton = $('#add-button')
 
 var requestOptions = {
   method: 'GET',
@@ -132,4 +134,49 @@ fetch('https://wiki-briefs.p.rapidapi.com/search?q=Messi&topk=3', options)
 
  
   
+  var birdFormEl = $('#bird-form');
+  var birdListEl = $('#bird-list');
  
+
+  // create function to handle form submission
+  function handleFormSubmit(event) {
+    event.preventDefault();
+  
+    // select form element by its `name` attribute and get its value
+    var birdItem = $('input[name="bird-input"]').val();
+  
+    // if there's nothing in the form entered, don't print to the page
+    if (!birdItem) {
+      console.log('No bird filled out in form!');
+      return;
+    }
+    var newCheck = $('<input id="default-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">');
+    birdListEl.append(newCheck);
+  
+    // print to the page
+    birdListEl.append('<li>' + birdItem + '</li>');
+  
+    // clear the form input element
+    $('input[name="bird-input"]').val('');
+
+  }
+  
+  // Create a submit event listener on the form element
+  birdFormEl.on('click', function(e) {
+    e.preventDefault();
+    handleFormSubmit();
+
+  });
+
+
+  function saveText(e) {
+
+    var key = x;
+    var value = birdAdd.val();
+    localStorage.setItem(key, value);
+    x+=1
+}
+
+localStorage.removeItem(key);
+
+birdButton.on('click', saveText)
