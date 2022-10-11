@@ -21,3 +21,7 @@ min-height: 100%;
     padding: 2rem;
     width: 45vh;
 }
+
+#header-img {
+    background-image: url("birds.jpg");
+}
