@@ -9,6 +9,9 @@ var tableBody = $('#tableBody');
 var go = $('#go');
 var searchbar = $('#searchbar');
 var birdSearch = $('#birdSearch');
+var display12 = $('#display1');
+//Unused??
+var outputinfo = document.getElementById("information");
 
 var birdAdd = $('#bird-input');
 var x = 0
@@ -35,6 +38,7 @@ function onMapClick(e) {
 
 map.on('click', onMapClick);
 
+//What is this
 function getRecent() {
   var requestUrl = "https://api.ebird.org/v2/data/obs/geo/recent?lat="+ lat + "&lng=" + long;
 
@@ -59,7 +63,6 @@ function getLoc() {
       var lat = data[0].lat;
       var lon = data[0].lon;
       map.setView([lat,lon],12);
-      var markerGroup = L.layerGroup().addTo(map);
       var birdRequest = "https://api.ebird.org/v2/data/obs/geo/recent?lat="+ lat + "&lng=" + lon;
       fetch(birdRequest,requestOptions)
         .then(function(birdResponse) {
@@ -69,6 +72,7 @@ function getLoc() {
           console.log(birdData);
           // only execute for loop if number of children for tableBody is 0 If not 0 then it means its already populated
           // Then execute text replacement instead
+          var markerGroup = L.layerGroup();
           if (tableBody.children().length===0) {
             for (var i = 0; i< 10; i++) {
               var tableRow = $('<tr class="border-b">');
@@ -85,10 +89,14 @@ function getLoc() {
               locEl.text(birdData[i].locName);
               locEl.attr('id',"loc" + i);
               var marker = L.marker([birdData[i].lat, birdData[i].lng]);
-              marker.addTo(map);
+              markerGroup.addLayer(marker);
             }
+            markerGroup.addTo(map);
           } else {
-            markerGroup.clearLayers();
+            map.eachLayer((layer) => {
+              if(layer['_latlng']!=undefined)
+                  layer.remove();
+            });
             for (var i = 0; i<10; i++) {
               var nameid = "#name" + i;
               var locid = "#loc" + i;
@@ -96,19 +104,22 @@ function getLoc() {
               $(nameid).text(birdData[i].comName);
               $(locid).text(birdData[i].locName);
               var marker = L.marker([birdData[i].lat, birdData[i].lng]);
-              marker.addTo(markerGroup);
+              markerGroup.addLayer(marker);
             }
+            markerGroup.addTo(map);
           }
         })
     })
 }
 
 go.on('click',function() {
-  getLoc();
+  if (searchbar.val() !=""){
+    getLoc();
+  }
 });
 searchbar.keydown(function(e) {
   var keyCode = e.which;
-  if (e.which ==13) {
+  if (e.which ==13 && searchbar.val() != "") {
     getLoc();
   }
 })
@@ -129,13 +140,19 @@ function getFact(e) {
 	  .then(response => response.json())
 	  .then(response => {console.log(response)
       
-      const info = response.summary[1];
-      console.log(response.summary)
-      const outputinfo = document.getElementById("information");
-      const display12 = document.getElementById("display1");
-      const displayinfo = document.createElement("h1");
-      displayinfo.innerHTML = outputinfo;
-      display12.textContent = info;
+      console.log(response.summary);
+      if (display12.children().length < 3) {
+        for (var i=0; i<response.summary.length; i++) {
+          var newFact = response.summary[i];
+          var factEl= $('<li></li>');
+          display12.append(factEl);
+          factEl.text(newFact);
+        }
+      } else {
+        for (var j=0; j<response.summary.length; j++) {
+          display12.children().eq(j).text(response.summary[j]);
+        }
+      }
   }) 
 
   
@@ -144,7 +161,7 @@ function getFact(e) {
   
 birdSearch.keydown(function(e) {
   var keyCode = e.which;
-  if (keyCode ==13) {
+  if (keyCode ==13 && birdSearch.val()!="") {
     getFact(birdSearch.val());
   }
 });
@@ -154,7 +171,6 @@ birdSearch.keydown(function(e) {
 
   // create function to handle form submission
   function handleFormSubmit(event) {
-    event.preventDefault();
   
     // select form element by its `name` attribute and get its value
     var birdItem = $('input[name="bird-input"]').val();
@@ -164,11 +180,14 @@ birdSearch.keydown(function(e) {
       console.log('No bird filled out in form!');
       return;
     }
-    var newCheck = $('<input id="default-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">');
+    var newCheck = $('<input id="default-checkbox" type="checkbox" value="" class="col-start-1 col-span-1 w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">');
     birdListEl.append(newCheck);
+    var checkCol = $('<div class="grid grid-cols-12 gap-2 items-center"></div>');
+    birdListEl.append(checkCol);
+    checkCol.append(newCheck);
   
     // print to the page
-    birdListEl.append('<li>' + birdItem + '</li>');
+    checkCol.append('<li class="col-span-11">' + birdItem + '</li>');
   
     // clear the form input element
     $('input[name="bird-input"]').val('');
@@ -191,6 +210,5 @@ birdSearch.keydown(function(e) {
     x+=1
 }
 
-localStorage.removeItem(key);
 
 birdButton.on('click', saveText)
