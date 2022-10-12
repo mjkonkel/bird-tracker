@@ -48,6 +48,12 @@ input[type=checkbox]:checked + .birdSave {
     text-decoration: line-through;
 }
 
+.default-checkbox[type=checkbox]:checked + .birdSave
+
 #listEl {
     margin: 20px 0 20px 0;
+}
+
+.leaflet-popup-content {
+    text-align: center;
 }
