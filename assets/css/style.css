@@ -9,7 +9,7 @@
 
 #map {
 min-width: 100%;
-min-height: 365px;
+min-height: 100%;
 }
 
 
@@ -20,4 +20,31 @@ min-height: 365px;
     border-radius: 20px;
     padding: 2rem;
     width: 45vh;
+}
+
+#header-img {
+    background-image: url("birdsunset.png");
+    background-size: cover;
+}
+
+.birdName:hover {
+    cursor: pointer;
+}
+
+#factHead {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+#headerlinks {
+    display: flex;
+    justify-content: space-around;
+    color: white;
+    margin-top: -70px;
+    margin-bottom: 60px;
+    font-weight: bolder;
+}
+
+input[type=checkbox]:checked + .birdSave {
+    text-decoration: line-through;
 }

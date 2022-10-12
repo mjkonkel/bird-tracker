@@ -2,110 +2,145 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--Leaflet Api-->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css" integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin="" />
-    <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js" integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
-    <!--jQuery-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <!--tailwind cdn link-->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="./assets/css/style.css">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--Leaflet Api-->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
+    integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
+    integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
+  <!--jQuery-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <!--tailwind cdn link-->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <title>Document</title>
 </head>
 
 <body>
-    <header>
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg shadow-md py-2 bg-white relative flex items-center w-full justify-between">
-          <div class="px-6 w-full flex flex-wrap items-center justify-between">
-            <div class="flex items-center">
-              <button
-                class="navbar-toggler border-0 py-3 lg:hidden leading-none text-xl bg-transparent text-gray-600 hover:text-gray-700 focus:text-gray-700 transition-shadow duration-150 ease-in-out mr-2"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContentY"
-                aria-controls="navbarSupportedContentY"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-              >
-                <svg
-                  aria-hidden="true"
-                  focusable="false"
-                  data-prefix="fas"
-                  class="w-5"
-                  role="img"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 448 512"
-                >
-                  <path
-                    fill="currentColor"
-                    d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"
-                  ></path>
-                </svg>
-              </button>
-            </div>
-            <div class="navbar-collapse collapse grow items-center" id="navbarSupportedContentY">
-              <ul class="navbar-nav mr-auto lg:flex lg:flex-row">
-                <li class="nav-item">
-                  <a class="nav-link block pr-2 lg:px-2 py-2 text-gray-600 hover:text-gray-700 focus:text-gray-700 transition duration-150 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">Home</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link block pr-2 lg:px-2 py-2 text-gray-600 hover:text-gray-700 focus:text-gray-700 transition duration-150 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">Features</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link block pr-2 lg:px-2 py-2 text-gray-600 hover:text-gray-700 focus:text-gray-700 transition duration-150 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">Pricing</a>
-                </li>
-                <li class="nav-item mb-2 lg:mb-0">
-                  <a class="nav-link block pr-2 lg:px-2 py-2 text-gray-600 hover:text-gray-700 focus:text-gray-700 transition duration-150 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">About</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-        <!-- Navbar -->
-      
-        <!-- Jumbotron -->
-        <div class="text-center bg-gray-50 text-gray-800 py-20 px-6">
-          <h1 class="text-5xl font-bold mt-0 mb-6">Heading</h1>
-          <h3 class="text-3xl font-bold mb-8">Subeading</h3>
-          <a class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out" data-mdb-ripple="true" data-mdb-ripple-color="light" href="#!" role="button">Get started</a>
+  <header>
+    <!-- Navbar -->
+   <!----<nav class="navbar navbar-expand-lg shadow-md py-2 bg-white relative flex items-center w-full justify-between">
+      <div class="px-6 w-full flex flex-wrap items-center justify-between">
+        <div class="flex items-center">
+          <button
+            class="navbar-toggler border-0 py-3 lg:hidden leading-none text-xl bg-transparent text-gray-600 hover:text-gray-700 focus:text-gray-700 transition-shadow duration-150 ease-in-out mr-2"
+            type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContentY"
+            aria-controls="navbarSupportedContentY" aria-expanded="false" aria-label="Toggle navigation">
+            <svg aria-hidden="true" focusable="false" data-prefix="fas" class="w-5" role="img"
+              xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+              <path fill="currentColor"
+                d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z">
+              </path>
+            </svg>
+          </button>
         </div>
-        <!-- Jumbotron -->
-    </header>
-    <div class="flex items-center justify-start ml-5 mt-5 mb-5">
-        <div class="flex border-2 border-gray-200 rounded">
-            <input type="text" id="searchbar" class="px-4 py-2 w-80" placeholder="Search...">
-            <button id="go" class="px-4 text-white bg-gray-600 border-l ">
-                Search
-            </button>
+        <div class="navbar-collapse collapse grow items-center" id="navbarSupportedContentY">
+          <ul class="navbar-nav mr-auto lg:flex lg:flex-row">
+            <li class="nav-item">
+              <a class="nav-link block pr-2 lg:px-2 py-2 text-gray-600 hover:text-gray-700 focus:text-gray-700 transition duration-150 ease-in-out"
+                href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link block pr-2 lg:px-2 py-2 text-gray-600 hover:text-gray-700 focus:text-gray-700 transition duration-150 ease-in-out"
+                href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">Features</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link block pr-2 lg:px-2 py-2 text-gray-600 hover:text-gray-700 focus:text-gray-700 transition duration-150 ease-in-out"
+                href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">Pricing</a>
+            </li>
+            <li class="nav-item mb-2 lg:mb-0">
+              <a class="nav-link block pr-2 lg:px-2 py-2 text-gray-600 hover:text-gray-700 focus:text-gray-700 transition duration-150 ease-in-out"
+                href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">About</a>
+            </li>
+          </ul>
         </div>
+      </div>
+    </nav> -->
+    <!-- Navbar -->
+
+    <!-- Jumbotron -->
+    <div class="text-center bg-gray-50 text-gray-800 py-20 px-6" id="header-img">
+
+      <div id="headerlinks">
+        <a href="#searchbar">Map</a>
+        <a href="#bird-form">Your List</a>
+        <a href="#card">Bird Facts</a>
+      </div>
+
+
+      <h1 class="text-5xl font-bold mt-0 mb-6 text-white">Bird Spotter</h1>
+      <h3 class="text-2xl font-bold mb-8 text-white">Find birds wherever. Whenever.</h3>
+    
+    <!-- Jumbotron -->
+  </header>
+  <div class="flex items-center justify-start ml-5 mt-5 mb-5">
+    <div class="flex border-2 border-gray-200 rounded">
+      <input type="text" id="searchbar" class="px-4 py-2 w-80" placeholder="Search for a Location!">
+      <button id="go" class="px-4 text-white bg-gray-600 border-l ">
+        Search
+      </button>
     </div>
-    <main class="grid grid-cols-3 gap-4 ml-5">
-        <div class="flex border-2 border-gray-200 rounded min-w-sm">
-            <div id="map" class = "max-w-sm max-h-[300px] flex flex-wrap"></div>
+  </div>
+  <main class="grid grid-cols-3 gap-4 ml-5">
+    <div class="flex border-2 border-gray-200 rounded min-w-sm min-h-[350px]">
+      <div id="map" class="max-w-sm flex flex-wrap"></div>
+    </div>
+    <div class="flex flex-col">
+      <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+          <div class="overflow-hidden">
+            <table class="min-w-full">
+              <thead class="border-b">
+                <tr>
+                  <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                    #
+                  </th>
+                  <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                    Common Name
+                  </th>
+                  <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                    Location
+                  </th>
+                </tr>
+              </thead>
+              <tbody id="tableBody">
+              </tbody>
+            </table>
+          </div>
         </div>
-    </main>
-
-
-
-
-
-
+      </div>
+    </div>
 
     <div class="card">
-      <div class="search"> Type a species name and get some info!
-        <input type="text" class="SearchBar">
-        <button class="SearchBtn"></button>
-        <p id="display1">  </p>
+      <div class="search">
+        <p id="factHead" class="space-y-4">Generate a Table by Searching for a Location then Click on the Common Name to search generate facts about the bird!</p>
+        <button class="SearchBtn space-y-4"></button>
+        <ul id="display1" class="space-y-4"></ul>
       </div>
-      </div>
-
     </div>
 
-    <script src="./assets/js/script.js"></script>
+    <div>
+      <h2>List of birds I want to see:</h2>
+      <form id="bird-form">
+        <input type="text" class="bird-name" id="bird-input" name="bird-input"
+          placeholder="Enter bird name" />
+        <button class="" id="add-button">Add</button>
+      </form>
+
+      <ul id="bird-list"></ul>
+    </div>
+  </main>
+
+
+
+
+
+
+
+
+  <script src="./assets/js/script.js"></script>
 </body>
 
 </html>
