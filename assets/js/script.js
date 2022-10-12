@@ -177,16 +177,11 @@ var birdListEl = $('#bird-list');
  
 
 // create function to handle form submission
-function handleFormSubmit(event) {
+function addBird(event) {
   
   // select form element by its `name` attribute and get its value
-  var birdItem = $('input[name="bird-input"]').val();
   
   // if there's nothing in the form entered, don't print to the page
-  if (!birdItem) {
-    console.log('No bird filled out in form!');
-    return;
-  }
   var newCheck = $('<input id="default-checkbox" type="checkbox" value="" class="col-start-1 col-span-1 w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">');
   birdListEl.append(newCheck);
   var checkCol = $('<div class="grid grid-cols-12 gap-2 items-center"></div>');
@@ -194,28 +189,25 @@ function handleFormSubmit(event) {
   checkCol.append(newCheck);
   
   // print to the page
-  checkCol.append('<li class="col-span-11">' + birdItem + '</li>');
+  checkCol.append('<li class="col-span-11">' + event + '</li>');
   
   // clear the form input element
   $('input[name="bird-input"]').val('');
 
 }
   
-  // Create a submit event listener on the form element
-birdFormEl.on('click', function(e) {
-  e.preventDefault();
-  handleFormSubmit();
-});
+
 
 
 function saveText(e) {
-  saveArray.push(birdAdd.val());
+  saveArray.push(factHead.text());
   localStorage.setItem("saveArray", JSON.stringify(saveArray));
 }
 
 
 birdButton.on('click', function() {
-  saveText(birdAdd.val());
+  saveText(factHead.text());
+  addBird(factHead.text());
 });
 
 $(document).on('click','.birdName' ,function() {
