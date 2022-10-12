@@ -23,7 +23,8 @@ min-height: 100%;
 }
 
 #header-img {
-    background-image: url("birds.jpg");
+    background-image: url("birdsunset.png");
+    background-size: cover;
 }
 
 .birdName:hover {
@@ -33,6 +34,15 @@ min-height: 100%;
 #factHead {
     font-size: 24px;
     font-weight: 600;
+}
+
+#headerlinks {
+    display: flex;
+    justify-content: space-around;
+    color: white;
+    margin-top: -70px;
+    margin-bottom: 60px;
+    font-weight: bolder;
 }
 
 input[type=checkbox]:checked + .birdSave {
