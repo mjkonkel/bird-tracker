@@ -94,7 +94,9 @@ function getLoc() {
               tableRow.append(locEl);
               locEl.text(birdData[i].locName);
               locEl.attr('id',"loc" + i);
-              var marker = L.marker([birdData[i].lat, birdData[i].lng]);
+              var marker = L.marker([birdData[i].lat, birdData[i].lng])
+                .bindPopup(birdData[i].comName + "<br><br>" + birdData[i].locName)
+                .openPopup();
               markerGroup.addLayer(marker);
             }
             markerGroup.addTo(map);
@@ -190,7 +192,7 @@ function addBird(event) {
     checkCol.append(newCheck);
     
     // print to the page
-    checkCol.append('<li class="col-span-11">' + event + '</li>');
+    checkCol.append('<li class="col-span-11 birdSave">' + event + '</li>');
   }
 }
   
