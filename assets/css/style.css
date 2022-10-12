@@ -8,18 +8,17 @@
 
 
 #map {
-min-width: 100%;
-min-height: 100%;
+    min-width: 100%;
+    min-height: 100%;
 }
 
 
 
 .card {
     background-color: rgb(173, 176, 176);
-    margin: 20px;
+    margin: 20px 0 20px 0;
     border-radius: 20px;
     padding: 2rem;
-    width: 45vh;
 }
 
 #header-img {
@@ -47,4 +46,8 @@ min-height: 100%;
 
 input[type=checkbox]:checked + .birdSave {
     text-decoration: line-through;
+}
+
+#listEl {
+    margin: 20px 0 20px 0;
 }
