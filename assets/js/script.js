@@ -182,26 +182,26 @@ function addBird(event) {
   // select form element by its `name` attribute and get its value
   
   // if there's nothing in the form entered, don't print to the page
-  var newCheck = $('<input id="default-checkbox" type="checkbox" value="" class="col-start-1 col-span-1 w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">');
-  birdListEl.append(newCheck);
-  var checkCol = $('<div class="grid grid-cols-12 gap-2 items-center"></div>');
-  birdListEl.append(checkCol);
-  checkCol.append(newCheck);
-  
-  // print to the page
-  checkCol.append('<li class="col-span-11">' + event + '</li>');
-  
-  // clear the form input element
-  $('input[name="bird-input"]').val('');
-
+  if (event != "Generate a Table by Searching for a Location then Click on the Common Name to search generate facts about the bird!") {
+    var newCheck = $('<input id="default-checkbox" type="checkbox" value="" class="col-start-1 col-span-1 w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">');
+    birdListEl.append(newCheck);
+    var checkCol = $('<div class="grid grid-cols-12 gap-2 items-center"></div>');
+    birdListEl.append(checkCol);
+    checkCol.append(newCheck);
+    
+    // print to the page
+    checkCol.append('<li class="col-span-11">' + event + '</li>');
+  }
 }
   
 
 
 
-function saveText(e) {
-  saveArray.push(factHead.text());
-  localStorage.setItem("saveArray", JSON.stringify(saveArray));
+function saveText() {
+  if (factHead.text() != "Generate a Table by Searching for a Location then Click on the Common Name to search generate facts about the bird!") {
+    saveArray.push(factHead.text());
+    localStorage.setItem("saveArray", JSON.stringify(saveArray));
+  }
 }
 
 
