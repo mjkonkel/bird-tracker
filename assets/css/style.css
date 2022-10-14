@@ -35,6 +35,11 @@
     font-weight: 600;
 }
 
+#listHead {
+    font-size: 24px;
+    font-weight: 600;
+}
+
 #headerlinks {
     display: flex;
     justify-content: space-around;

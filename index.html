@@ -76,14 +76,14 @@
     <!-- Jumbotron -->
   </header>
   <div class="flex items-center justify-center ml-5 mt-5 mb-5">
-    <div class="flex border-2 border-gray-200 rounded">
-      <input type="text" id="searchbar" class="px-4 py-2 w-80" placeholder="Search for a Location!">
-      <button id="go" class="px-4 text-white bg-gray-600 border-l ">
+    <div class="">
+      <input type="text" id="searchbar" class="px-4 py-2 w-80 rounded border-2 border-gray-200" placeholder="Search for a Location!">
+      <button id="go" class="bg-amber-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5 text-zinc-800">
         Search
       </button>
     </div>
   </div>
-  <main class="grid grid-cols-2 gap-4 ml-5">
+  <main class="grid grid-cols-2 gap-4 mx-5">
     <div class="flex border-2 border-gray-800 rounded min-w-sm min-h-[500px] rounded-xl">
       <div id="map" class="max-w-sm flex flex-wrap rounded-xl"></div>
     </div>
@@ -122,8 +122,8 @@
       </div>
     </div>
 
-    <div id="listEl">
-      <h2 id="">List of birds I want to see:</h2>
+    <div class="card bg-stone-200 w-full" id="listEl">
+      <h2 class="space-y-4" id="listHead">List of birds I want to see:</h2>
       <ul id="bird-list"></ul>
     </div>
   </main>
