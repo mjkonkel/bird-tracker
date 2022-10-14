@@ -16,6 +16,7 @@ if (typeof (localStorage.saveArray) == "undefined") {
 } else {
   var saveArray = JSON.parse(localStorage.saveArray);
 }
+
 //Unused??
 var outputinfo = document.getElementById("information");
 
@@ -57,7 +58,7 @@ function getRecent() {
 }
 
 function getLoc() {
-  var requestUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + searchbar.val() + '&appid=' + geokey;
+  var requestUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + searchbar.val() + '&appid=' + geokey;
   fetch(requestUrl)
     .then(function (response) {
       searchbar.val("");
@@ -192,7 +193,9 @@ function addBird(event) {
     checkCol.append(newCheck);
     
     // print to the page
-    checkCol.append('<li class="col-span-11 birdSave">' + event + '</li>');
+    checkCol.append('<li class="col-span-10 birdSave">' + event + '</li>');
+    var removeBtn = $('<button class="bg-red-600 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded m-2" id="removeBtn">Delete</button>');
+    checkCol.append(removeBtn);
   }
 }
   
@@ -223,14 +226,20 @@ function webLoad() {
   for (i=0; i<saveArray.length; i++) {
     var newCheck = $('<input id="default-checkbox" type="checkbox" value="" class="col-start-1 col-span-1 w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 strikethrough">');
     birdListEl.append(newCheck);
-    var checkCol = $('<div class="grid grid-cols-12 gap-2 items-center"></div>');
+    var checkCol = $('<div class="grid grid-cols-12 gap-2 items-center leading-5"></div>');
+    var removeBtn = $('<button class="bg-red-600 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded col-span-2 m-2" id="removeBtn">Delete</button>');
     birdListEl.append(checkCol);
     checkCol.append(newCheck);
     
     // print to the page
-    checkCol.append('<li class="col-span-11 birdSave">' + saveLoc[i] + '</li>');
+    checkCol.append('<li class="col-span-9 birdSave">' + saveLoc[i] + '</li>');
+    checkCol.append(removeBtn);
   }
 }
+
+$(document).on('click','#removeBtn',  function() {
+  $(this).parent().remove();
+})
 
 if (typeof (localStorage.saveArray) !== "undefined") {
   webLoad();
