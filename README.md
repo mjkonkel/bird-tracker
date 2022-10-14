@@ -1,3 +1,5 @@
+## Bird Spotter
+
 # Description
     The bird sighting website was created to locate birds in any area and get information about them. Within this website you can locate birds and information along side it, aswell as creating your very own bird list.
 
