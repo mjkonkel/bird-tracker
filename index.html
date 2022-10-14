@@ -15,13 +15,13 @@
   <!--tailwind cdn link-->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="./assets/css/style.css">
-  <title>Document</title>
+  <title>Bird Spotter</title>
 </head>
 
 <body class="bg-orange-50">
   <header>
     <!-- Jumbotron -->
-    <div class="text-center bg-gray-50 text-gray-800 py-20 px-6" id="header-img">
+    <div class="text-center bg-gray-50 text-gray-800 py-20 px-6" id="header-img" style="background-image: url('./assets/images/birdsunset.png')">
 
       <div id="headerlinks">
         <a href="#searchbar">Map</a>
@@ -79,7 +79,11 @@
         <p id="factHead" class="space-y-4">Generate a Table by Searching for a Location then Click on the Common Name to
           search generate facts about the bird!</p>
         <button class="SearchBtn space-y-4"></button>
-        <ul id="display1" class="space-y-4"></ul>
+        <ul id="display1" class="space-y-4">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
         <button class="bg-amber-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5 text-zinc-800"
           id="add-button">Add to my List</button>
       </div>
