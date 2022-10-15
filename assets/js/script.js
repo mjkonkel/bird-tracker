@@ -17,9 +17,6 @@ if (typeof (localStorage.saveArray) == "undefined") {
   var saveArray = JSON.parse(localStorage.saveArray);
 }
 
-//Unused??
-var outputinfo = document.getElementById("information");
-
 var birdAdd = $('#bird-input');
 var birdButton = $('#add-button')
 
@@ -30,7 +27,7 @@ var requestOptions = {
 };
 
 //get map to populate in html
-var map = L.map('map').setView([51.505, -0.09], 12);
+var map = L.map('map').setView([44.9778, -93.2650], 12);
 L.tileLayer('https://api.maptiler.com/maps/basic-v2/{z}/{x}/{y}.png?key=BDq8ih5k4CXhmse4zYZL', {
   maxZoom: 19,
   attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
@@ -38,24 +35,10 @@ L.tileLayer('https://api.maptiler.com/maps/basic-v2/{z}/{x}/{y}.png?key=BDq8ih5k
 
 //Add click element
 function onMapClick(e) {
-  console.log(e.latlng);
   alert("You clicked the map at " + e.latlng);
 }
 
 map.on('click', onMapClick);
-
-//What is this
-function getRecent() {
-  var requestUrl = "https://api.ebird.org/v2/data/obs/geo/recent?lat="+ lat + "&lng=" + long;
-
-  fetch(requestUrl,requestOptions)
-      .then(function (response) {
-          return response.json();
-      })
-      .then(function (data) {
-        console.log(data);
-      })
-}
 
 function getLoc() {
   var requestUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + searchbar.val() + '&appid=' + geokey;
@@ -65,7 +48,6 @@ function getLoc() {
       return response.json();
     })
     .then(function(data) {
-      console.log(data);
       var lat = data[0].lat;
       var lon = data[0].lon;
       map.setView([lat,lon],12);
@@ -75,7 +57,6 @@ function getLoc() {
           return birdResponse.json();
         })
         .then(function(birdData) {
-          console.log(birdData);
           // only execute for loop if number of children for tableBody is 0 If not 0 then it means its already populated
           // Then execute text replacement instead
           var markerGroup = L.layerGroup();
@@ -109,7 +90,6 @@ function getLoc() {
             for (var i = 0; i<10; i++) {
               var nameid = "#name" + i;
               var locid = "#loc" + i;
-              console.log(birdData[i].comName);
               $(nameid).text(birdData[i].comName);
               $(locid).text(birdData[i].locName);
               var marker = L.marker([birdData[i].lat, birdData[i].lng]);
@@ -121,14 +101,16 @@ function getLoc() {
     })
 }
 
+//Click function for searchbar
 go.on('click',function() {
   if (searchbar.val() !=""){
     getLoc();
   }
 });
+//searchbar also executes on clicking "enter"
 searchbar.keydown(function(e) {
   var keyCode = e.which;
-  if (e.which ==13 && searchbar.val() != "") {
+  if (keyCode ==13 && searchbar.val() != "") {
     getLoc();
   }
 })
@@ -147,21 +129,13 @@ const options = {
 function getFact(e) {
   fetch('https://wiki-briefs.p.rapidapi.com/search?q=' + e + '&topk=3', options)
 	  .then(response => response.json())
-	  .then(response => {console.log(response)
-      
-      console.log(response.summary);
-      console.log(typeof(e));
-      if (display12.children().length < 3) {
-        for (var i=0; i<response.summary.length; i++) {
-          var newFact = response.summary[i];
-          var factEl= $('<li></li>');
-          display12.append(factEl);
-          factEl.text(newFact);
-        }
-      } else {
-        for (var j=0; j<response.summary.length; j++) {
-          display12.children().eq(j).text(response.summary[j]);
-        }
+	  .then(response => {
+      //clear text
+      for (var j=0; j<3; j++) {
+        display12.children().eq(j).text("");
+      }
+      for (var i=0; i<response.summary.length; i++) {
+        display12.children().eq(i).text(response.summary[i]);
       }
   }) 
 
@@ -194,7 +168,7 @@ function addBird(event) {
     
     // print to the page
     checkCol.append('<li class="col-span-9 birdSave">' + event + '</li>');
-    var removeBtn = $('<button class="bg-red-600 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded col-span-2 m-2 removeBtn">Delete</button>');
+    var removeBtn = $('<button class="bg-red-600 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded col-span-2 m-2 removeBtn">X</button>');
     checkCol.append(removeBtn);
   }
 }
@@ -216,7 +190,6 @@ birdButton.on('click', function() {
 });
 
 $(document).on('click','.birdName' ,function() {
-  console.log(this.innerText);
   factHead.text(this.innerText);
   getFact(this.innerText);
 })
@@ -227,7 +200,7 @@ function webLoad() {
     var newCheck = $('<input id="default-checkbox" type="checkbox" value="" class="col-start-1 col-span-1 w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 strikethrough">');
     birdListEl.append(newCheck);
     var checkCol = $('<div class="grid grid-cols-12 gap-2 items-center leading-5"></div>');
-    var removeBtn = $('<button class="bg-red-600 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded col-span-2 m-2 removeBtn">Delete</button>');
+    var removeBtn = $('<button class="bg-red-600 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded col-span-2 m-2 removeBtn">X</button>');
     birdListEl.append(checkCol);
     checkCol.append(newCheck);
     
@@ -242,7 +215,6 @@ $(document).on('click','.removeBtn',  function() {
   var alen = birdListEl.children().length;
   saveArray=[];
   for (i=0; i<alen; i++) {
-    console.log(birdListEl.children().eq(i).children().eq(1).text());
     saveArray.push(birdListEl.children().eq(i).children().eq(1).text());
   }
   localStorage.setItem("saveArray", JSON.stringify(saveArray));
