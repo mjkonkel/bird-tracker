@@ -129,7 +129,6 @@ function getFact(e) {
 	  .then(response => response.json())
 	  .then(response => {
       //clear text
-      console.log(response);
       for (var j=0; j<3; j++) {
         display12.children().eq(j).text("");
       }
