@@ -27,7 +27,7 @@ var requestOptions = {
 };
 
 //get map to populate in html
-var map = L.map('map').setView([44.9778, -93.2650], 12);
+var map = L.map('map').setView([44.9778, -93.2650], 11);
 L.tileLayer('https://api.maptiler.com/maps/basic-v2/{z}/{x}/{y}.png?key=BDq8ih5k4CXhmse4zYZL', {
   maxZoom: 19,
   attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
@@ -50,7 +50,7 @@ function getLoc() {
     .then(function(data) {
       var lat = data[0].lat;
       var lon = data[0].lon;
-      map.setView([lat,lon],12);
+      map.setView([lat,lon],11);
       var birdRequest = "https://api.ebird.org/v2/data/obs/geo/recent?lat="+ lat + "&lng=" + lon;
       fetch(birdRequest,requestOptions)
         .then(function(birdResponse) {
