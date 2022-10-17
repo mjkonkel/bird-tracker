@@ -11,6 +11,7 @@ var searchbar = $('#searchbar');
 var birdSearch = $('#birdSearch');
 var display12 = $('#display1');
 var factHead = $('#factHead');
+//If there's nothing in local storage, set up an array, otherwise parse the array for local storage
 if (typeof (localStorage.saveArray) == "undefined") {
   var saveArray = [];
 } else {
@@ -33,13 +34,6 @@ L.tileLayer('https://api.maptiler.com/maps/basic-v2/{z}/{x}/{y}.png?key=BDq8ih5k
   attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
 }).addTo(map);
 
-//Add click element
-function onMapClick(e) {
-  alert("You clicked the map at " + e.latlng);
-}
-
-map.on('click', onMapClick);
-
 function getLoc() {
   var requestUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + searchbar.val() + '&appid=' + geokey;
   fetch(requestUrl)
@@ -50,6 +44,7 @@ function getLoc() {
     .then(function(data) {
       var lat = data[0].lat;
       var lon = data[0].lon;
+      //move the map to searched location
       map.setView([lat,lon],11);
       var birdRequest = "https://api.ebird.org/v2/data/obs/geo/recent?lat="+ lat + "&lng=" + lon;
       fetch(birdRequest,requestOptions)
@@ -83,10 +78,12 @@ function getLoc() {
             }
             markerGroup.addTo(map);
           } else {
+            // remove markers for leaflet map
             map.eachLayer((layer) => {
               if(layer['_latlng']!=undefined)
                   layer.remove();
             });
+            // add markers for bird locations back to map
             for (var i = 0; i<10; i++) {
               var nameid = "#name" + i;
               var locid = "#loc" + i;
@@ -126,11 +123,13 @@ const options = {
 	}
 };
 
+//wiki api for facts
 function getFact(e) {
   fetch('https://wiki-briefs.p.rapidapi.com/search?q=' + e + '&topk=3', options)
 	  .then(response => response.json())
 	  .then(response => {
       //clear text
+      console.log(response);
       for (var j=0; j<3; j++) {
         display12.children().eq(j).text("");
       }
@@ -142,7 +141,7 @@ function getFact(e) {
   
 	.catch(err => console.error(err));
 }
-  
+//Searchbar function that executes on pressing enter
 birdSearch.keydown(function(e) {
   var keyCode = e.which;
   if (keyCode ==13 && birdSearch.val()!="") {
@@ -153,12 +152,9 @@ var birdFormEl = $('#bird-form');
 var birdListEl = $('#bird-list');
  
 
-// create function to handle form submission
+//Function to add a bird to the list of birds to see
 function addBird(event) {
   
-  // select form element by its `name` attribute and get its value
-  
-  // if there's nothing in the form entered, don't print to the page
   if (event != "Generate a Table by Searching for a Location then Click on the Common Name to search generate facts about the bird!") {
     var newCheck = $('<input id="default-checkbox" type="checkbox" value="" class="col-start-1 col-span-1 w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">');
     birdListEl.append(newCheck);
@@ -175,7 +171,7 @@ function addBird(event) {
   
 
 
-
+//function to save the array to the local storage
 function saveText() {
   if (factHead.text() != "Generate a Table by Searching for a Location then Click on the Common Name to search generate facts about the bird!") {
     saveArray.push(factHead.text());
@@ -183,17 +179,19 @@ function saveText() {
   }
 }
 
-
+//Function to add birds that want to see to the list
 birdButton.on('click', function() {
   saveText(factHead.text());
   addBird(factHead.text());
 });
 
+// click function for birds that get added to the table.
 $(document).on('click','.birdName' ,function() {
   factHead.text(this.innerText);
   getFact(this.innerText);
 })
 
+//function that is executed on load of the webpage.
 function webLoad() {
   var saveLoc = JSON.parse(localStorage.saveArray);
   for (i=0; i<saveArray.length; i++) {
@@ -210,6 +208,7 @@ function webLoad() {
   }
 }
 
+//click function for buttons that are created when adding birds to the list.
 $(document).on('click','.removeBtn',  function() {
   $(this).parent().remove();
   var alen = birdListEl.children().length;
@@ -220,6 +219,7 @@ $(document).on('click','.removeBtn',  function() {
   localStorage.setItem("saveArray", JSON.stringify(saveArray));
 })
 
+//if local storage exists, then it'll execute the webload funciton
 if (typeof (localStorage.saveArray) !== "undefined") {
   webLoad();
 }

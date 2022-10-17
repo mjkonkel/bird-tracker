@@ -31,8 +31,6 @@ If the bird was already seen, click on the checkbox to cross the bird out.
 
 To remove the bird from the list click on the red box with the X to the right of the bird in the list. This will delete the bird from local storage and the list.
 
-## Screenshot
-
 ## Links
  [Link to deployed application](https://mjkonkel.github.io/bird-tracker/)
 
@@ -42,9 +40,9 @@ To remove the bird from the list click on the red box with the X to the right of
 ### Nam Bui
 [Nam Bui GitHub](https://github.com/nambui17)
 ### Tyler Van Meveren
-[Tyler Van Meveeren] (https://github.com/Tvanmeveren)
+[Tyler Van Meveeren](https://github.com/Tvanmeveren)
 ### William Hirsch
-
+[William Hirsch](https://github.com/WilliamHirschh)
 ## License
 
 MIT License. Please refer to LICENSE in the repository.
