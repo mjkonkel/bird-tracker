@@ -42,6 +42,7 @@ To remove the bird from the list click on the red box with the X to the right of
 ### Nam Bui
 [Nam Bui GitHub](https://github.com/nambui17)
 ### Tyler Van Meveren
+[Tyler Van Meveeren] (https://github.com/Tvanmeveren)
 ### William Hirsch
 
 ## License
