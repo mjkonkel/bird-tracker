@@ -46,7 +46,7 @@ function getLoc() {
       var lon = data[0].lon;
       //move the map to searched location
       map.setView([lat,lon],11);
-      var birdRequest = "https://api.ebird.org/v2/data/obs/geo/recent?lat="+ lat + "&lng=" + lon;
+      var birdRequest = "https://api.ebird.org/v2/data/obs/geo/recent?lat="+ lat + "&lng=" + lon + "&maxResults=10";
       fetch(birdRequest,requestOptions)
         .then(function(birdResponse) {
           return birdResponse.json();
